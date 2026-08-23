@@ -1,17 +1,32 @@
 #!/usr/bin/python3
-roman_to_int = __import__('12-roman_to_int').roman_to_int
 
-roman_number = "X"
-print("{} = {}".format(roman_number, roman_to_int(roman_number)))
 
-roman_number = "VII"
-print("{} = {}".format(roman_number, roman_to_int(roman_number)))
+def roman_to_int(roman_string):
+    if not isinstance(roman_string, str):
+        return 0
 
-roman_number = "IX"
-print("{} = {}".format(roman_number, roman_to_int(roman_number)))
+    values = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000
+    }
 
-roman_number = "LXXXVII"
-print("{} = {}".format(roman_number, roman_to_int(roman_number)))
+    total = 0
 
-roman_number = "DCCVII"
-print("{} = {}".format(roman_number, roman_to_int(roman_number)))
+    for i in range(len(roman_string)):
+        current = values[roman_string[i]]
+
+        if i + 1 < len(roman_string):
+            next_value = values[roman_string[i + 1]]
+            if current < next_value:
+                total -= current
+            else:
+                total += current
+        else:
+            total += current
+
+    return total
